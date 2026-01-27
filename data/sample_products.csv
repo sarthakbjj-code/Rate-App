@@ -1,0 +1,6 @@
+material_number,description,hsn_code,uom,category,gst_rate,preferred_brand
+MAT001,Ashirvaad Whole Wheat Atta 5kg,1101,kg,Food & Beverages,5.0,Ashirvaad
+MAT002,Fortune Sunflower Oil 1 Litre,1512,litre,Food & Beverages,5.0,Fortune
+MAT003,Tata Salt 1kg,2501,kg,Food & Beverages,5.0,Tata
+MAT004,Britannia Good Day Biscuits 200g,1905,kg,Food & Beverages,18.0,Britannia
+MAT005,Surf Excel Detergent 1kg,3402,kg,Household,18.0,Surf Excel
