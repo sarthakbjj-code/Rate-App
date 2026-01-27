@@ -13,4 +13,15 @@ This system provides real-time price intelligence, GST lookup, and AI-powered pr
 - ✅ Web-based dashboard
 
 ## Getting Started
-Setup instructions coming soon...
+### Local Preview
+Open `public/index.html` in a browser to preview the landing page.
+
+### Docker Deployment
+Build and run the containerized static site:
+
+```bash
+docker build -t rate-app .
+docker run --rm -p 8080:80 rate-app
+```
+
+Visit `http://localhost:8080` to view the app.
