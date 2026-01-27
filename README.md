@@ -189,6 +189,22 @@ This will:
 
 Press Ctrl+C to stop the scheduler.
 
+## Deployment
+
+Want to deploy your app online? See the comprehensive [Deployment Guide](docs/DEPLOYMENT.md) for:
+
+- ✅ **Streamlit Cloud** (recommended, free for GitHub repos)
+- Heroku deployment
+- Docker + Cloud platforms
+- AWS/Azure/GCP options
+
+Quick deploy to Streamlit Cloud:
+1. Push code to GitHub
+2. Go to https://share.streamlit.io/
+3. Connect your repo and deploy!
+
+See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for detailed instructions.
+
 ## Database Schema
 
 The system uses SQLite with the following main tables:
