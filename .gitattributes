@@ -1,0 +1,10 @@
+# Tell GitHub this is a Python project
+*.py linguist-detectable=true
+*.md linguist-documentation=true
+*.txt linguist-documentation=true
+*.json linguist-generated=true
+*.csv linguist-generated=true
+
+# Mark Python as the primary language
+* linguist-vendored
+*.py -linguist-vendored
