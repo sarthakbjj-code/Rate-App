@@ -118,7 +118,12 @@ class PriceForecaster:
             # Simple forecast: assume prices stay near moving average
             # Add small random variation to make it realistic
             np.random.seed(42)
-            trend = df['price'].tail(30).pct_change().mean()
+            
+            # Calculate trend, handling NaN values
+            price_changes = df['price'].tail(30).pct_change()
+            # Remove NaN values before calculating mean
+            price_changes = price_changes.dropna()
+            trend = price_changes.mean() if len(price_changes) > 0 else 0
             
             predictions = []
             for i in range(periods):

@@ -3,30 +3,7 @@ import re
 from typing import Optional, Tuple
 
 
-def validate_hsn_code(hsn_code: str) -> bool:
-    """
-    Validate HSN code format (4-8 digits).
-    
-    Args:
-        hsn_code: HSN code to validate
-        
-    Returns:
-        True if valid, False otherwise
-    """
-    if not hsn_code:
-        return False
-    
-    # Remove any spaces or dashes
-    hsn_code = hsn_code.replace(' ', '').replace('-', '')
-    
-    # Check if it's 4-8 digits
-    if re.match(r'^\d{4,8}$', hsn_code):
-        return True
-    
-    return False
-
-
-def normalize_price(price: float, quantity: float, unit: str, target_unit: str = None) -> Optional[float]:
+def normalize_price(price: float, quantity: float, unit: str) -> Optional[float]:
     """
     Normalize price to standard unit.
     
@@ -142,8 +119,14 @@ def sanitize_input(text: str) -> str:
     if not text:
         return ""
     
-    # Remove any potentially harmful characters
-    text = re.sub(r'[<>\"\'%;()&+]', '', text)
+    # Remove potentially harmful HTML/script tags
+    text = re.sub(r'<[^>]*>', '', text)
+    
+    # Remove SQL injection attempts
+    text = re.sub(r'[\';\"\\]', '', text)
+    
+    # Remove other potentially harmful characters
+    text = re.sub(r'[&<>]', '', text)
     
     # Limit length
     text = text[:200]

@@ -133,6 +133,14 @@ def get_engine(db_path=None):
     if db_path is None:
         db_path = os.getenv('DATABASE_PATH', 'data/price_history.db')
     
+    # Validate database path to prevent path traversal
+    db_path = os.path.abspath(db_path)
+    allowed_dir = os.path.abspath('data')
+    
+    # Ensure the path is within the allowed directory
+    if not db_path.startswith(allowed_dir):
+        raise ValueError(f"Database path must be within {allowed_dir}")
+    
     # Create data directory if it doesn't exist
     os.makedirs(os.path.dirname(db_path), exist_ok=True)
     
