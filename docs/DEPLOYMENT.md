@@ -4,6 +4,8 @@
 
 This guide covers multiple deployment options for the Procurement Intelligence System. The easiest option for GitHub users is **Streamlit Cloud** (free for public repositories).
 
+> **⚠️ Important Note:** Currently, all code is on the `copilot/build-procurement-web-app` branch. When deploying to Streamlit Cloud, make sure to select this branch, OR merge the PR to `main` first and then deploy from `main`.
+
 ---
 
 ## Option 1: Streamlit Cloud (Recommended) ⭐
@@ -57,7 +59,7 @@ EOF
 3. **Click "New app"**
 4. **Configure:**
    - Repository: `sarthakbjj-code/Rate-App`
-   - Branch: `main` (or your default branch)
+   - Branch: `copilot/build-procurement-web-app` (or merge to `main` first)
    - Main file path: `web_app/app.py`
 5. **Advanced settings (optional):**
    - Add secrets (if using API keys)
@@ -95,7 +97,8 @@ Streamlit Cloud auto-deploys when you push to the connected branch:
 ```bash
 git add .
 git commit -m "Update feature"
-git push origin main
+git push origin copilot/build-procurement-web-app
+# Or push to main after merging the PR
 ```
 
 The app will automatically redeploy in 1-2 minutes.

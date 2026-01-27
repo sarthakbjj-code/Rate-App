@@ -199,9 +199,14 @@ Want to deploy your app online? See the comprehensive [Deployment Guide](docs/DE
 - AWS/Azure/GCP options
 
 Quick deploy to Streamlit Cloud:
-1. Push code to GitHub
-2. Go to https://share.streamlit.io/
-3. Connect your repo and deploy!
+1. Go to https://share.streamlit.io/
+2. Sign in with GitHub
+3. Select repository: `sarthakbjj-code/Rate-App`
+4. **Branch:** `copilot/build-procurement-web-app` (or merge to `main` first)
+5. **Main file:** `web_app/app.py`
+6. Click "Deploy"
+
+> **Note:** The code is currently on the `copilot/build-procurement-web-app` branch. Either deploy from this branch or merge the PR to `main` first.
 
 See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for detailed instructions.
 
