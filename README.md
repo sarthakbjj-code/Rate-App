@@ -6,9 +6,12 @@ AI-powered price intelligence for smart procurement decisions.
 
 If your deployment is hanging at "Processing dependencies", **we've just fixed it!**
 
-**👉 [READ THE FIX NOW](STUCK_DEPLOYMENT_FIX.md)** ⚡
+**Q: Do I redeploy or just reboot?**  
+**A: REBOOT first!** → **[Click here for step-by-step](REBOOT_OR_REDEPLOY.md)** ⚡
 
-**Quick fix:** Delete your stuck app, wait 2 minutes, redeploy. Should work in 1-2 minutes!
+**Quick answer:** Go to Streamlit Cloud → Find your app → Click menu (⋮) → Reboot app → Wait 2-3 minutes!
+
+**Still stuck?** → **[Full troubleshooting guide](STUCK_DEPLOYMENT_FIX.md)**
 
 ---
 

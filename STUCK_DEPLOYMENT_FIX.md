@@ -1,5 +1,20 @@
 # 🔧 STUCK DEPLOYMENT FIX
 
+## 🎯 Quick Answer
+
+**Q: Do I redeploy or just reboot?**
+
+**A: REBOOT first!** (easier, faster)
+
+1. Go to https://share.streamlit.io/
+2. Find your app → Click 3-dot menu (⋮) → Click "Reboot app"
+3. Wait 2-3 minutes
+4. ✅ Should work now!
+
+**Still stuck?** → See [REBOOT_OR_REDEPLOY.md](REBOOT_OR_REDEPLOY.md) for detailed instructions.
+
+---
+
 ## Problem
 Your deployment is stuck at "Processing dependencies" and won't move forward.
 
