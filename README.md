@@ -6,7 +6,8 @@ AI-powered price intelligence for smart procurement decisions.
 
 Deploy to Streamlit Cloud in just 2-3 minutes with our ultra-lightweight configuration!
 
-**👉 [QUICK DEPLOY GUIDE](QUICK_DEPLOY.md) 👈**
+**👉 [QUICK DEPLOY GUIDE](QUICK_DEPLOY.md) 👈**  
+**🆕 [NEW ACCOUNT? START HERE](NEW_ACCOUNT_DEPLOY.md) 👈**
 
 ---
 
