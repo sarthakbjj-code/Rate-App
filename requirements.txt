@@ -1,0 +1,20 @@
+# ABSOLUTE MINIMAL for Streamlit Cloud - Python 3.13 Compatible
+# Only Streamlit pinned to ensure compatibility, others flexible
+# For full features, use requirements-full.txt and deploy locally
+
+# Core Data Processing
+pandas
+numpy
+
+# Visualization
+plotly
+
+# Web Framework (MUST pin to recent version for Python 3.13 compatibility)
+streamlit>=1.28.0
+
+# Utilities
+python-dotenv
+
+# Web Scraping (lightweight)
+beautifulsoup4
+requests
