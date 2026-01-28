@@ -10,16 +10,32 @@ import os
 # Add parent directory to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.scrapers import (
-    BlinkitScraper, AmazonScraper, FlipkartScraper,
-    JioMartScraper, IndiaMartScraper, BigBasketScraper
-)
-from src.data_collection.gst_lookup import GSTRateFinder
-from src.analysis.price_analyzer import PriceAnalyzer
-from src.analysis.forecasting import PriceForecaster
-from src.analysis.recommendations import RecommendationEngine
+# Try to import all modules (optional for cloud deployment)
+try:
+    from src.scrapers import (
+        BlinkitScraper, AmazonScraper, FlipkartScraper,
+        JioMartScraper, IndiaMartScraper, BigBasketScraper
+    )
+    SCRAPERS_AVAILABLE = True
+except ImportError as e:
+    SCRAPERS_AVAILABLE = False
+    st.sidebar.info(f"ℹ️ Scrapers not available (demo mode)")
 
-# Try to import database (optional for cloud deployment)
+try:
+    from src.data_collection.gst_lookup import GSTRateFinder
+    GST_AVAILABLE = True
+except ImportError:
+    GST_AVAILABLE = False
+
+try:
+    from src.analysis.price_analyzer import PriceAnalyzer
+    from src.analysis.forecasting import PriceForecaster
+    from src.analysis.recommendations import RecommendationEngine
+    ANALYSIS_AVAILABLE = True
+except ImportError as e:
+    ANALYSIS_AVAILABLE = False
+    st.sidebar.info(f"ℹ️ Analysis modules not available")
+
 try:
     from src.database import get_session, Product, PriceHistory
     DB_AVAILABLE = True
@@ -27,7 +43,16 @@ except ImportError:
     DB_AVAILABLE = False
     st.sidebar.warning("⚠️ Running in demo mode (no database)")
 
-from src.utils.validators import validate_product_name, validate_hsn_code
+try:
+    from src.utils.validators import validate_product_name, validate_hsn_code
+    VALIDATORS_AVAILABLE = True
+except ImportError:
+    VALIDATORS_AVAILABLE = False
+    # Simple fallback validators
+    def validate_product_name(name):
+        return bool(name and len(name) > 0)
+    def validate_hsn_code(code):
+        return bool(code and code.isdigit() and 4 <= len(code) <= 8)
 from config import config
 import logging
 
@@ -185,33 +210,48 @@ else:
     with st.spinner("🔎 Analyzing prices from multiple sources..."):
         
         # Get GST information
-        gst_finder = GSTRateFinder()
-        gst_info = gst_finder.get_gst_rate(hsn_code)
+        if GST_AVAILABLE:
+            gst_finder = GSTRateFinder()
+            gst_info = gst_finder.get_gst_rate(hsn_code)
+        else:
+            # Fallback GST info
+            gst_info = {
+                'hsn_code': hsn_code,
+                'gst_rate': 18.0,
+                'cess': 0.0,
+                'description': 'General goods',
+                'source': 'Default',
+                'confidence': 'low'
+            }
         
         # Run scrapers (async)
-        async def run_all_scrapers():
-            scrapers = [
-                BlinkitScraper(),
-                AmazonScraper(),
-                FlipkartScraper(),
-                JioMartScraper(),
-                IndiaMartScraper(),
-                BigBasketScraper()
-            ]
+        if SCRAPERS_AVAILABLE:
+            async def run_all_scrapers():
+                scrapers = [
+                    BlinkitScraper(),
+                    AmazonScraper(),
+                    FlipkartScraper(),
+                    JioMartScraper(),
+                    IndiaMartScraper(),
+                    BigBasketScraper()
+                ]
+                
+                tasks = [s.search_product(product_name, hsn_code) for s in scrapers]
+                results = await asyncio.gather(*tasks, return_exceptions=True)
+                
+                # Flatten results
+                all_products = []
+                for result in results:
+                    if isinstance(result, list):
+                        all_products.extend(result)
+                
+                return all_products
             
-            tasks = [s.search_product(product_name, hsn_code) for s in scrapers]
-            results = await asyncio.gather(*tasks, return_exceptions=True)
-            
-            # Flatten results
-            all_products = []
-            for result in results:
-                if isinstance(result, list):
-                    all_products.extend(result)
-            
-            return all_products
-        
-        # Get current prices
-        current_prices = asyncio.run(run_all_scrapers())
+            # Get current prices
+            current_prices = asyncio.run(run_all_scrapers())
+        else:
+            # Demo mode - no scrapers available
+            current_prices = []
         
         # Generate sample historical data for demo (in real app, this comes from database)
         # For MVP, we'll create some dummy historical data
@@ -252,11 +292,24 @@ else:
         }
         
         # Forecast
-        forecaster = PriceForecaster()
-        forecast = forecaster.forecast_prices(historical_data, periods=180)
+        if ANALYSIS_AVAILABLE:
+            forecaster = PriceForecaster()
+            forecast = forecaster.forecast_prices(historical_data, periods=180)
+        else:
+            # Simple fallback forecast
+            forecast = {
+                'dates': [datetime.now() + timedelta(days=i) for i in range(180)],
+                'predictions': [300 + i*0.1 for i in range(180)],
+                'lower_bound': [290 + i*0.1 for i in range(180)],
+                'upper_bound': [310 + i*0.1 for i in range(180)],
+                'confidence': 0.7
+            }
         
         # Recommendations
-        rec_engine = RecommendationEngine()
+        if ANALYSIS_AVAILABLE:
+            rec_engine = RecommendationEngine()
+        else:
+            rec_engine = None
         
         # If no scraped prices, use dummy data for demo
         if not current_prices:
@@ -272,13 +325,29 @@ else:
                 }
             ]
         
-        recommendations = rec_engine.generate_recommendations(
-            current_prices=current_prices,
-            historical_analysis=price_analysis,
-            seasonality=seasonality,
-            forecast=forecast,
-            current_supplier_price=current_supplier_price if current_supplier_price > 0 else None
-        )
+        if rec_engine:
+            recommendations = rec_engine.generate_recommendations(
+                current_prices=current_prices,
+                historical_analysis=price_analysis,
+                seasonality=seasonality,
+                forecast=forecast,
+                current_supplier_price=current_supplier_price if current_supplier_price > 0 else None
+            )
+        else:
+            # Fallback recommendations
+            recommendations = {
+                'action': 'NEGOTIATE',
+                'confidence': 0.7,
+                'current_best_price': current_prices[0] if current_prices else {'price': 295, 'source': 'Market'},
+                'negotiation_target': 310,
+                'potential_savings': 40,
+                'savings_percentage': 11.4,
+                'best_time_to_buy': 'March-April',
+                'avoid_months': 'November-December',
+                'top_3_options': current_prices[:3] if len(current_prices) >= 3 else current_prices,
+                'forecast_trend': 'stable',
+                'recommendation_text': 'Market analysis suggests current prices are favorable for procurement.'
+            }
     
     # Display results in tabs
     tab1, tab2, tab3, tab4 = st.tabs([

@@ -3,17 +3,26 @@ import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional
-from sqlalchemy.orm import Session
-from src.database import PriceHistory, Product
 import logging
 
 logger = logging.getLogger(__name__)
+
+# Try to import database classes (optional for cloud deployment)
+try:
+    from sqlalchemy.orm import Session
+    from src.database import PriceHistory, Product
+    DB_AVAILABLE = True
+except ImportError:
+    DB_AVAILABLE = False
+    Session = None  # Type hint placeholder
+    PriceHistory = None
+    Product = None
 
 
 class PriceAnalyzer:
     """Analyze historical price data."""
     
-    def __init__(self, session: Session):
+    def __init__(self, session=None):
         """
         Initialize price analyzer.
         
@@ -22,12 +31,14 @@ class PriceAnalyzer:
         """
         self.session = session
     
-    def analyze_historical_prices(self, product_id: int, days: int = 730) -> Dict:
+    def analyze_historical_prices(self, product_id: int = None, days: int = 730, price_data: List[Dict] = None) -> Dict:
         """
         Analyze historical prices for a product.
         
         Args:
-            product_id: Product ID
+            product_id: Product ID (optional if price_data provided)
+            days: Number of days to analyze
+            price_data: Direct price data if no database available
             days: Number of days to analyze (default: 730 = 2 years)
             
         Returns:
