@@ -137,8 +137,8 @@ with st.sidebar:
     
     product_name = st.text_input(
         "Product Name*",
-        placeholder="e.g., Ashirvaad Atta 5kg",
-        help="Enter the product name to search"
+        placeholder="e.g., Tata Salt, Britannia Biscuit, etc.",
+        help="Enter the exact product name you want to search for"
     )
     
     hsn_code = st.text_input(
@@ -344,12 +344,16 @@ else:
         
         # If no scraped prices, use comprehensive dummy data for demo
         # Shows multiple sources and size variants as requested by user
+        # Uses the actual product name searched by user (not random brands)
         if not current_prices:
+            # Extract base brand name from product_name (before any size/variant info)
+            base_brand = product_name.split()[0] if product_name else 'Product'
+            
             current_prices = [
                 # Blinkit - 500g variant
                 {
                     'product_name': f'{product_name} 500g',
-                    'brand': 'Ashirvaad',
+                    'brand': base_brand,
                     'size': '500g',
                     'current_price': 145.0,
                     'mrp': 160.0,
@@ -361,7 +365,7 @@ else:
                 # Blinkit - 1kg variant
                 {
                     'product_name': f'{product_name} 1kg',
-                    'brand': 'Ashirvaad',
+                    'brand': base_brand,
                     'size': '1kg',
                     'current_price': 280.0,
                     'mrp': 310.0,
@@ -373,7 +377,7 @@ else:
                 # Blinkit - 5kg variant
                 {
                     'product_name': f'{product_name} 5kg',
-                    'brand': 'Ashirvaad',
+                    'brand': base_brand,
                     'size': '5kg',
                     'current_price': 1375.0,
                     'mrp': 1480.0,
@@ -385,7 +389,7 @@ else:
                 # Amazon - 500g variant
                 {
                     'product_name': f'{product_name} 500g',
-                    'brand': 'Pillsbury',
+                    'brand': base_brand,
                     'size': '500g',
                     'current_price': 148.0,
                     'mrp': 165.0,
@@ -397,7 +401,7 @@ else:
                 # Amazon - 1kg variant
                 {
                     'product_name': f'{product_name} 1kg',
-                    'brand': 'Pillsbury',
+                    'brand': base_brand,
                     'size': '1kg',
                     'current_price': 285.0,
                     'mrp': 320.0,
@@ -409,7 +413,7 @@ else:
                 # Amazon - 5kg variant
                 {
                     'product_name': f'{product_name} 5kg',
-                    'brand': 'Pillsbury',
+                    'brand': base_brand,
                     'size': '5kg',
                     'current_price': 1399.0,
                     'mrp': 1550.0,
@@ -421,7 +425,7 @@ else:
                 # Flipkart - 1kg variant
                 {
                     'product_name': f'{product_name} 1kg',
-                    'brand': 'Aashirvaad',
+                    'brand': base_brand,
                     'size': '1kg',
                     'current_price': 295.0,
                     'mrp': 315.0,
@@ -433,7 +437,7 @@ else:
                 # Flipkart - 5kg variant
                 {
                     'product_name': f'{product_name} 5kg',
-                    'brand': 'Aashirvaad',
+                    'brand': base_brand,
                     'size': '5kg',
                     'current_price': 1425.0,
                     'mrp': 1499.0,
@@ -445,7 +449,7 @@ else:
                 # JioMart - 500g variant
                 {
                     'product_name': f'{product_name} 500g',
-                    'brand': 'Annapurna',
+                    'brand': base_brand,
                     'size': '500g',
                     'current_price': 142.0,
                     'mrp': 158.0,
@@ -457,7 +461,7 @@ else:
                 # JioMart - 1kg variant
                 {
                     'product_name': f'{product_name} 1kg',
-                    'brand': 'Annapurna',
+                    'brand': base_brand,
                     'size': '1kg',
                     'current_price': 275.0,
                     'mrp': 305.0,
@@ -469,7 +473,7 @@ else:
                 # IndiaMART - 10kg bulk (wholesale)
                 {
                     'product_name': f'{product_name} 10kg',
-                    'brand': 'Generic',
+                    'brand': base_brand,
                     'size': '10kg',
                     'current_price': 2650.0,
                     'mrp': 2900.0,
@@ -481,7 +485,7 @@ else:
                 # IndiaMART - 25kg bulk (wholesale)
                 {
                     'product_name': f'{product_name} 25kg',
-                    'brand': 'Generic',
+                    'brand': base_brand,
                     'size': '25kg',
                     'current_price': 6400.0,
                     'mrp': 7000.0,
@@ -493,7 +497,7 @@ else:
                 # BigBasket - 500g variant
                 {
                     'product_name': f'{product_name} 500g',
-                    'brand': 'Fortune',
+                    'brand': base_brand,
                     'size': '500g',
                     'current_price': 149.0,
                     'mrp': 162.0,
@@ -505,7 +509,7 @@ else:
                 # BigBasket - 1kg variant
                 {
                     'product_name': f'{product_name} 1kg',
-                    'brand': 'Fortune',
+                    'brand': base_brand,
                     'size': '1kg',
                     'current_price': 290.0,
                     'mrp': 318.0,
@@ -517,7 +521,7 @@ else:
                 # BigBasket - 5kg variant
                 {
                     'product_name': f'{product_name} 5kg',
-                    'brand': 'Fortune',
+                    'brand': base_brand,
                     'size': '5kg',
                     'current_price': 1410.0,
                     'mrp': 1520.0,
@@ -563,7 +567,7 @@ else:
     with tab1:
         st.subheader("Current Market Prices")
         if not SCRAPERS_AVAILABLE:
-            st.info("⚠️ **Demo Mode:** Showing sample price data from historical dataset (2024-2025)")
+            st.warning(f"⚠️ **DEMO MODE:** Showing example pricing structure for **'{product_name}'**. These are sample prices to demonstrate how the system displays multi-source data. For real current prices, deploy locally (see documentation).")
         
         # GST Info Card
         col1, col2, col3, col4 = st.columns(4)
