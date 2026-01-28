@@ -102,6 +102,37 @@ st.markdown('<div class="sub-header">AI-Powered Price Analysis & Forecasting</di
 
 # Sidebar - Input Form
 with st.sidebar:
+    # Demo Mode Banner
+    if not SCRAPERS_AVAILABLE or not DB_AVAILABLE:
+        st.warning("⚠️ **DEMO MODE**")
+        st.info("""
+        **📊 Data Source:** Sample Historical Dataset  
+        **📅 Data Period:** 2024-2025  
+        **🔢 Records:** 1,575 price points  
+        
+        This is a demonstration using sample data.
+        """)
+        
+        with st.expander("ℹ️ **Demo vs Real-Time Mode**"):
+            st.markdown("""
+            **📱 DEMO MODE (Current)**
+            - ✅ Free cloud hosting
+            - ✅ Sample data analysis
+            - ✅ Full UI & visualizations
+            - ❌ No live price scraping
+            - ❌ Historical sample data only
+            
+            **🚀 REAL-TIME MODE (Local Deployment)**
+            - ✅ Live price scraping (6 platforms)
+            - ✅ Current market prices
+            - ✅ Real-time GST lookup
+            - ✅ Full database storage
+            - ✅ All ML forecasting models
+            
+            **Want real-time data?**  
+            📖 [Deploy Locally](https://github.com/sarthakbjj-code/Rate-App/blob/copilot/build-procurement-web-app/README.md) using `requirements-full.txt`
+            """)
+    
     st.header("📋 Product Details")
     
     product_name = st.text_input(
@@ -359,6 +390,8 @@ else:
     
     with tab1:
         st.subheader("Current Market Prices")
+        if not SCRAPERS_AVAILABLE:
+            st.info("⚠️ **Demo Mode:** Showing sample price data from historical dataset (2024-2025)")
         
         # GST Info Card
         col1, col2, col3, col4 = st.columns(4)
@@ -423,6 +456,7 @@ else:
     
     with tab2:
         st.subheader("2-Year Price History")
+        st.info("📊 **Data Source:** Sample Historical Dataset | **Period:** 2024-2025 | **Records:** 1,575 price points")
         
         if historical_data:
             # Create DataFrame
@@ -484,6 +518,7 @@ else:
     
     with tab3:
         st.subheader("6-Month Price Forecast")
+        st.info("🔮 **Demo Mode:** Forecast based on sample historical data (2024-2025) using Simple Moving Average")
         
         if forecast and forecast.get('predictions'):
             # Create forecast DataFrame
@@ -551,6 +586,7 @@ else:
     
     with tab4:
         st.subheader("💡 Procurement Recommendations")
+        st.info("📊 **Based on:** Sample historical data (2024-2025) | Analysis shows typical procurement patterns")
         
         # Action card
         action = recommendations['action']
