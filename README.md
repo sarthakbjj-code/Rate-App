@@ -4,6 +4,22 @@ AI-powered price intelligence for smart procurement decisions.
 
 ## 🚨 **DEPLOYMENT ISSUES? LATEST FIX!**
 
+### 🎯 NEW: Multi-Source Pricing with Size Variants (Jan 28)
+
+**User asked:** "Need rates from all sources with links, multiple sizes with MRP and sale price"  
+→ **[MULTI-SOURCE PRICING GUIDE](MULTI_SOURCE_PRICING_GUIDE.md)** ← **NEW FEATURE!** 📊
+
+**✅ NOW SHOWING:**
+- All 6 sources (Blinkit, Amazon, Flipkart, JioMart, IndiaMART, BigBasket)
+- Multiple sizes (500g, 1kg, 5kg, 10kg, 25kg)
+- Sale Price + MRP + Discount % for each variant
+- Direct product links to each source
+- Group by Source or Size view
+
+**Quick action:** REBOOT your app to see the new comprehensive price table! ✨
+
+---
+
 ### ⚡ Latest: Data Source Question
 
 **"Where is the data coming from? Why no real-time prices?"**  
