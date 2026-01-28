@@ -2,7 +2,24 @@
 
 AI-powered price intelligence for smart procurement decisions.
 
-## 🚨 **DEPLOYMENT ISSUES? LATEST FIX!**
+## 🚨 **LATEST FIX: Random Outputs Issue (Jan 28)**
+
+### ⚡ FIXED: "Getting random outputs pillsburry, ashirwas, random rates……"
+
+**Issue:** Search results showed unrelated brands (Ashirvaad, Pillsbury, Fortune) instead of YOUR searched product.
+
+**✅ FIXED:** Demo data now uses YOUR product name!
+- Search "Tata Salt" → See "Tata Salt" variants (not random brands)
+- Search "Maggi" → See "Maggi" variants
+- All results now match your search! 🎯
+
+**[FIX_FOR_RANDOM_OUTPUTS.md](FIX_FOR_RANDOM_OUTPUTS.md)** ← **READ HOW THIS WAS FIXED!**
+
+**Quick action:** REBOOT your app to see search-specific results! ✨
+
+---
+
+## 🚨 **DEPLOYMENT ISSUES? OTHER FIXES!**
 
 ### 🎯 NEW: Multi-Source Pricing with Size Variants (Jan 28)
 
