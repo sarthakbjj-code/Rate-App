@@ -18,7 +18,7 @@
   "2203": {"rate": 28, "desc": "Beer"},
   "2204": {"rate": 28, "desc": "Wine"},
   "2207": {"rate": 18, "desc": "Ethyl alcohol"},
-  "2501": {"rate": 5, "desc": "Salt"},
+  "2501": {"rate": 0, "desc": "Salt (Exempt from GST)"},
   "2710": {"rate": 18, "desc": "Petroleum oils"},
   "2828": {"rate": 12, "desc": "Bleaching powder"},
   "3004": {"rate": 12, "desc": "Medicaments"},

@@ -286,13 +286,37 @@ else:
         
         # Generate sample historical data for demo (in real app, this comes from database)
         # For MVP, we'll create some dummy historical data
+        # Use product-specific base price for realistic data
+        product_lower = product_name.lower()
+        if 'salt' in product_lower:
+            base_price = 20.0  # Salt: ₹20/kg
+        elif 'sugar' in product_lower or 'gud' in product_lower or 'jaggery' in product_lower:
+            base_price = 45.0  # Sugar: ₹45/kg
+        elif any(word in product_lower for word in ['atta', 'flour', 'wheat', 'maida']):
+            base_price = 40.0  # Flour: ₹40/kg
+        elif any(word in product_lower for word in ['rice', 'chawal']):
+            base_price = 60.0  # Rice: ₹60/kg
+        elif any(word in product_lower for word in ['dal', 'lentil', 'moong', 'toor', 'chana']):
+            base_price = 100.0  # Pulses: ₹100/kg
+        elif any(word in product_lower for word in ['oil', 'tel', 'ghee']):
+            base_price = 150.0  # Oils: ₹150/kg
+        elif any(word in product_lower for word in ['masala', 'spice', 'haldi', 'turmeric', 'mirch', 'chilli']):
+            base_price = 300.0  # Spices: ₹300/kg
+        elif any(word in product_lower for word in ['biscuit', 'cookie', 'cake']):
+            base_price = 250.0  # Biscuits: ₹250/kg
+        elif any(word in product_lower for word in ['soap', 'detergent', 'surf', 'washing']):
+            base_price = 200.0  # Detergents: ₹200/kg
+        elif any(word in product_lower for word in ['tea', 'chai', 'coffee']):
+            base_price = 500.0  # Tea/Coffee: ₹500/kg
+        else:
+            base_price = 40.0  # Default
+        
         historical_data = []
-        base_price = 300
         for i in range(365):
             date = datetime.now() - timedelta(days=365-i)
             # Add some variation
             import random
-            price = base_price + random.uniform(-20, 30)
+            price = base_price + random.uniform(-5, 8)  # ±5-8 variation
             historical_data.append({
                 'date': date,
                 'price': price
@@ -327,12 +351,12 @@ else:
             forecaster = PriceForecaster()
             forecast = forecaster.forecast_prices(historical_data, periods=180)
         else:
-            # Simple fallback forecast
+            # Simple fallback forecast using product-appropriate base price
             forecast = {
                 'dates': [datetime.now() + timedelta(days=i) for i in range(180)],
-                'predictions': [300 + i*0.1 for i in range(180)],
-                'lower_bound': [290 + i*0.1 for i in range(180)],
-                'upper_bound': [310 + i*0.1 for i in range(180)],
+                'predictions': [base_price + i*0.05 for i in range(180)],  # Use product base price
+                'lower_bound': [base_price - 5 + i*0.05 for i in range(180)],
+                'upper_bound': [base_price + 5 + i*0.05 for i in range(180)],
                 'confidence': 0.7
             }
         
@@ -349,174 +373,242 @@ else:
             # Extract base brand name from product_name (before any size/variant info)
             base_brand = product_name.split()[0] if product_name else 'Product'
             
+            # Detect product type and set realistic base prices (per kg)
+            product_lower = product_name.lower()
+            
+            # Product-specific pricing logic for realistic demo
+            if 'salt' in product_lower:
+                # Salt: ₹15-25/kg (very low price)
+                base_price_per_kg = 20.0
+            elif 'sugar' in product_lower or 'gud' in product_lower or 'jaggery' in product_lower:
+                # Sugar/jaggery: ₹40-50/kg
+                base_price_per_kg = 45.0
+            elif any(word in product_lower for word in ['atta', 'flour', 'wheat', 'maida']):
+                # Flour products: ₹35-45/kg
+                base_price_per_kg = 40.0
+            elif any(word in product_lower for word in ['rice', 'chawal']):
+                # Rice: ₹45-80/kg depending on type
+                base_price_per_kg = 60.0
+            elif any(word in product_lower for word in ['dal', 'lentil', 'moong', 'toor', 'chana']):
+                # Pulses/dals: ₹80-150/kg
+                base_price_per_kg = 100.0
+            elif any(word in product_lower for word in ['oil', 'tel', 'ghee']):
+                # Cooking oils/ghee: ₹120-200/kg or per liter
+                base_price_per_kg = 150.0
+            elif any(word in product_lower for word in ['masala', 'spice', 'haldi', 'turmeric', 'mirch', 'chilli']):
+                # Spices: ₹200-500/kg (high value)
+                base_price_per_kg = 300.0
+            elif any(word in product_lower for word in ['biscuit', 'cookie', 'cake']):
+                # Biscuits/snacks: ₹200-400/kg
+                base_price_per_kg = 250.0
+            elif any(word in product_lower for word in ['soap', 'detergent', 'surf', 'washing']):
+                # Detergents: ₹150-300/kg
+                base_price_per_kg = 200.0
+            elif any(word in product_lower for word in ['tea', 'chai', 'coffee']):
+                # Tea/coffee: ₹400-800/kg
+                base_price_per_kg = 500.0
+            else:
+                # Default for unknown products (wheat flour as baseline)
+                base_price_per_kg = 40.0
+            
+            # Helper function to calculate price for a given size
+            def get_price_for_size(size_str):
+                """Calculate realistic price based on size"""
+                # Extract numeric value from size string
+                size_lower = size_str.lower()
+                
+                if 'g' in size_lower and 'kg' not in size_lower:
+                    # Grams
+                    grams = float(size_lower.replace('g', ''))
+                    kg = grams / 1000.0
+                elif 'kg' in size_lower:
+                    # Kilograms
+                    kg = float(size_lower.replace('kg', ''))
+                else:
+                    kg = 1.0  # Default
+                
+                # Base price calculation
+                base = base_price_per_kg * kg
+                
+                # Add small packaging premium for small sizes
+                if kg < 1.0:
+                    base = base * 1.05  # 5% premium for smaller packs
+                
+                # Add small bulk discount for large sizes
+                if kg >= 10.0:
+                    base = base * 0.95  # 5% discount for bulk
+                
+                return round(base, 2)
+            
+            current_prices = [
             current_prices = [
                 # Blinkit - 500g variant
                 {
                     'product_name': f'{product_name} 500g',
                     'brand': base_brand,
                     'size': '500g',
-                    'current_price': 145.0,
-                    'mrp': 160.0,
+                    'current_price': get_price_for_size('500g') * 0.95,  # 5% discount
+                    'mrp': get_price_for_size('500g'),
                     'source': 'Blinkit',
                     'url': 'https://blinkit.com/search?q=' + product_name.replace(' ', '+'),
                     'in_stock': True,
-                    'discount_percent': 9.4
+                    'discount_percent': 5.0
                 },
                 # Blinkit - 1kg variant
                 {
                     'product_name': f'{product_name} 1kg',
                     'brand': base_brand,
                     'size': '1kg',
-                    'current_price': 280.0,
-                    'mrp': 310.0,
+                    'current_price': get_price_for_size('1kg') * 0.93,  # 7% discount
+                    'mrp': get_price_for_size('1kg'),
                     'source': 'Blinkit',
                     'url': 'https://blinkit.com/search?q=' + product_name.replace(' ', '+'),
                     'in_stock': True,
-                    'discount_percent': 9.7
+                    'discount_percent': 7.0
                 },
                 # Blinkit - 5kg variant
                 {
                     'product_name': f'{product_name} 5kg',
                     'brand': base_brand,
                     'size': '5kg',
-                    'current_price': 1375.0,
-                    'mrp': 1480.0,
+                    'current_price': get_price_for_size('5kg') * 0.92,  # 8% discount
+                    'mrp': get_price_for_size('5kg'),
                     'source': 'Blinkit',
                     'url': 'https://blinkit.com/search?q=' + product_name.replace(' ', '+'),
                     'in_stock': True,
-                    'discount_percent': 7.1
+                    'discount_percent': 8.0
                 },
                 # Amazon - 500g variant
                 {
                     'product_name': f'{product_name} 500g',
                     'brand': base_brand,
                     'size': '500g',
-                    'current_price': 148.0,
-                    'mrp': 165.0,
+                    'current_price': get_price_for_size('500g') * 0.94,  # 6% discount
+                    'mrp': get_price_for_size('500g'),
                     'source': 'Amazon',
                     'url': 'https://amazon.in/s?k=' + product_name.replace(' ', '+'),
                     'in_stock': True,
-                    'discount_percent': 10.3
+                    'discount_percent': 6.0
                 },
                 # Amazon - 1kg variant
                 {
                     'product_name': f'{product_name} 1kg',
                     'brand': base_brand,
                     'size': '1kg',
-                    'current_price': 285.0,
-                    'mrp': 320.0,
+                    'current_price': get_price_for_size('1kg') * 0.92,  # 8% discount
+                    'mrp': get_price_for_size('1kg'),
                     'source': 'Amazon',
                     'url': 'https://amazon.in/s?k=' + product_name.replace(' ', '+'),
                     'in_stock': True,
-                    'discount_percent': 10.9
+                    'discount_percent': 8.0
                 },
                 # Amazon - 5kg variant
                 {
                     'product_name': f'{product_name} 5kg',
                     'brand': base_brand,
                     'size': '5kg',
-                    'current_price': 1399.0,
-                    'mrp': 1550.0,
+                    'current_price': get_price_for_size('5kg') * 0.90,  # 10% discount
+                    'mrp': get_price_for_size('5kg'),
                     'source': 'Amazon',
                     'url': 'https://amazon.in/s?k=' + product_name.replace(' ', '+'),
                     'in_stock': True,
-                    'discount_percent': 9.7
+                    'discount_percent': 10.0
                 },
                 # Flipkart - 1kg variant
                 {
                     'product_name': f'{product_name} 1kg',
                     'brand': base_brand,
                     'size': '1kg',
-                    'current_price': 295.0,
-                    'mrp': 315.0,
+                    'current_price': get_price_for_size('1kg') * 0.94,  # 6% discount
+                    'mrp': get_price_for_size('1kg'),
                     'source': 'Flipkart',
                     'url': 'https://flipkart.com/search?q=' + product_name.replace(' ', '%20'),
                     'in_stock': True,
-                    'discount_percent': 6.3
+                    'discount_percent': 6.0
                 },
                 # Flipkart - 5kg variant
                 {
                     'product_name': f'{product_name} 5kg',
                     'brand': base_brand,
                     'size': '5kg',
-                    'current_price': 1425.0,
-                    'mrp': 1499.0,
+                    'current_price': get_price_for_size('5kg') * 0.93,  # 7% discount
+                    'mrp': get_price_for_size('5kg'),
                     'source': 'Flipkart',
                     'url': 'https://flipkart.com/search?q=' + product_name.replace(' ', '%20'),
                     'in_stock': True,
-                    'discount_percent': 4.9
+                    'discount_percent': 7.0
                 },
                 # JioMart - 500g variant
                 {
                     'product_name': f'{product_name} 500g',
                     'brand': base_brand,
                     'size': '500g',
-                    'current_price': 142.0,
-                    'mrp': 158.0,
+                    'current_price': get_price_for_size('500g') * 0.93,  # 7% discount
+                    'mrp': get_price_for_size('500g'),
                     'source': 'JioMart',
                     'url': 'https://jiomart.com/search/' + product_name.replace(' ', '%20'),
                     'in_stock': True,
-                    'discount_percent': 10.1
+                    'discount_percent': 7.0
                 },
                 # JioMart - 1kg variant
                 {
                     'product_name': f'{product_name} 1kg',
                     'brand': base_brand,
                     'size': '1kg',
-                    'current_price': 275.0,
-                    'mrp': 305.0,
+                    'current_price': get_price_for_size('1kg') * 0.91,  # 9% discount
+                    'mrp': get_price_for_size('1kg'),
                     'source': 'JioMart',
                     'url': 'https://jiomart.com/search/' + product_name.replace(' ', '%20'),
                     'in_stock': True,
-                    'discount_percent': 9.8
+                    'discount_percent': 9.0
                 },
                 # IndiaMART - 10kg bulk (wholesale)
                 {
                     'product_name': f'{product_name} 10kg',
                     'brand': base_brand,
                     'size': '10kg',
-                    'current_price': 2650.0,
-                    'mrp': 2900.0,
+                    'current_price': get_price_for_size('10kg') * 0.88,  # 12% bulk discount
+                    'mrp': get_price_for_size('10kg'),
                     'source': 'IndiaMART',
                     'url': 'https://indiamart.com/search.html?q=' + product_name.replace(' ', '+'),
                     'in_stock': True,
-                    'discount_percent': 8.6
+                    'discount_percent': 12.0
                 },
                 # IndiaMART - 25kg bulk (wholesale)
                 {
                     'product_name': f'{product_name} 25kg',
                     'brand': base_brand,
                     'size': '25kg',
-                    'current_price': 6400.0,
-                    'mrp': 7000.0,
+                    'current_price': get_price_for_size('25kg') * 0.85,  # 15% bulk discount
+                    'mrp': get_price_for_size('25kg'),
                     'source': 'IndiaMART',
                     'url': 'https://indiamart.com/search.html?q=' + product_name.replace(' ', '+'),
                     'in_stock': True,
-                    'discount_percent': 8.6
+                    'discount_percent': 15.0
                 },
                 # BigBasket - 500g variant
                 {
                     'product_name': f'{product_name} 500g',
                     'brand': base_brand,
                     'size': '500g',
-                    'current_price': 149.0,
-                    'mrp': 162.0,
+                    'current_price': get_price_for_size('500g') * 0.95,  # 5% discount
+                    'mrp': get_price_for_size('500g'),
                     'source': 'BigBasket',
                     'url': 'https://bigbasket.com/ps/?q=' + product_name.replace(' ', '%20'),
                     'in_stock': True,
-                    'discount_percent': 8.0
+                    'discount_percent': 5.0
                 },
                 # BigBasket - 1kg variant
                 {
                     'product_name': f'{product_name} 1kg',
                     'brand': base_brand,
                     'size': '1kg',
-                    'current_price': 290.0,
-                    'mrp': 318.0,
+                    'current_price': get_price_for_size('1kg') * 0.93,  # 7% discount
+                    'mrp': get_price_for_size('1kg'),
                     'source': 'BigBasket',
                     'url': 'https://bigbasket.com/ps/?q=' + product_name.replace(' ', '%20'),
                     'in_stock': True,
-                    'discount_percent': 8.8
+                    'discount_percent': 7.0
                 },
                 # BigBasket - 5kg variant
                 {
