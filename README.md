@@ -4,6 +4,15 @@ AI-powered price intelligence for smart procurement decisions.
 
 ## 🚨 **DEPLOYMENT ISSUES? LATEST FIX!**
 
+### ⚡ Latest: Data Source Question
+
+**"Where is the data coming from? Why no real-time prices?"**  
+→ **[DATA SOURCE EXPLANATION](DATA_SOURCE_EXPLANATION.md)** ← **READ THIS!** 📊
+
+**Short answer:** You're viewing DEMO MODE with sample data. After reboot, you'll see clear labels explaining data sources and how to get real-time data. ✅
+
+---
+
 ### ⚡ Latest Fix (Jan 28): ModuleNotFoundError
 
 **If you see "ModuleNotFoundError" in your app:**  
