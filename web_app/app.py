@@ -441,7 +441,6 @@ else:
                 return round(base, 2)
             
             current_prices = [
-            current_prices = [
                 # Blinkit - 500g variant
                 {
                     'product_name': f'{product_name} 500g',
