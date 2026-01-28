@@ -1,5 +1,18 @@
 # 🚀 QUICK DEPLOY - 2 Minute Streamlit Cloud Setup
 
+## ⚠️ FIRST: Fork the Repository!
+
+**Before you can deploy, you MUST fork this repository to your GitHub account:**
+
+1. Go to: https://github.com/sarthakbjj-code/Rate-App
+2. Click the **"Fork"** button (top right)
+3. Wait for fork to complete
+4. You'll have: `YOUR-USERNAME/Rate-App`
+
+✅ **Only then proceed with deployment below**
+
+---
+
 ## Current Status
 ✅ **Ultra-lightweight configuration ready**  
 ✅ **Deployment time: 2-3 minutes** (down from 2+ hours)  
@@ -16,10 +29,12 @@ Visit: **https://share.streamlit.io/**
 Click **"New app"** and fill in:
 
 ```
-Repository:  sarthakbjj-code/Rate-App
+Repository:  YOUR-USERNAME/Rate-App           ⚠️ Use YOUR GitHub username!
 Branch:      copilot/build-procurement-web-app
 Main file:   web_app/app.py
 ```
+
+**Important:** Replace `YOUR-USERNAME` with your actual GitHub username from your forked repository.
 
 ### Step 3: Deploy
 Click **"Deploy"** 

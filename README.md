@@ -2,12 +2,24 @@
 
 AI-powered price intelligence for smart procurement decisions.
 
-## 🚀 **NEW: 2-Minute Cloud Deployment!**
+## 🚀 **Want to Deploy? FORK FIRST!**
 
-Deploy to Streamlit Cloud in just 2-3 minutes with our ultra-lightweight configuration!
+### Step 1: Fork This Repository
+Click the button below to create your own copy:
 
-**👉 [QUICK DEPLOY GUIDE](QUICK_DEPLOY.md) 👈**  
-**🆕 [NEW ACCOUNT? START HERE](NEW_ACCOUNT_DEPLOY.md) 👈**
+[![Fork Repository](https://img.shields.io/badge/FORK-Repository-blue?style=for-the-badge&logo=github)](https://github.com/sarthakbjj-code/Rate-App/fork)
+
+**Or manually:** Click the "Fork" button at the top of this page.
+
+### Step 2: Deploy to Streamlit Cloud (2-3 minutes)
+
+After forking, follow these guides:
+
+**👉 [QUICK DEPLOY GUIDE](QUICK_DEPLOY.md)** - Fast 3-step deployment  
+**🆕 [NEW ACCOUNT? START HERE](NEW_ACCOUNT_DEPLOY.md)** - Complete walkthrough for new users  
+**❓ [DEPLOYMENT FAQ](DEPLOYMENT_FAQ.md)** - Common questions answered
+
+⚠️ **Important:** You must fork the repository before you can deploy it to Streamlit Cloud!
 
 ---
 

@@ -1,13 +1,54 @@
 # 🎯 Deploy to Your New Streamlit Account
 
+## ⚠️ IMPORTANT: Do You Need to Fork First?
+
+**YES! You MUST fork this repository to your own GitHub account before deploying.**
+
+### Why Fork?
+- ❌ You **cannot** deploy from `sarthakbjj-code/Rate-App` directly (it's not your repository)
+- ✅ You **must** fork to create `YOUR-USERNAME/Rate-App` (your own copy)
+- ✅ Forking gives you full control to deploy and modify the code
+- ✅ It's a one-click process on GitHub
+
+---
+
 ## Prerequisites
+✅ GitHub account (required)  
 ✅ New Streamlit Cloud account created  
-✅ GitHub account (to connect repository)  
 ✅ This is for deploying to **Streamlit Cloud** (not Snowflake)
 
 ---
 
 ## Step-by-Step Deployment Guide
+
+### Step 0: Fork the Repository (REQUIRED FIRST!)
+
+**You MUST do this before deploying:**
+
+1. **Go to the repository on GitHub:**
+   ```
+   https://github.com/sarthakbjj-code/Rate-App
+   ```
+
+2. **Click the "Fork" button** (top right corner of the page)
+   - It's next to "Star" and "Watch" buttons
+   - GitHub will create your own copy
+
+3. **Wait a few seconds** for the fork to complete
+
+4. **You'll be redirected to YOUR forked repository:**
+   ```
+   https://github.com/YOUR-USERNAME/Rate-App
+   ```
+
+5. **Verify you're on YOUR fork:**
+   - Check the repository name at the top
+   - Should say: `YOUR-USERNAME/Rate-App`
+   - NOT: `sarthakbjj-code/Rate-App`
+
+✅ **Once forked, proceed to Step 1 below**
+
+---
 
 ### Step 1: Sign In to Streamlit Cloud
 
@@ -24,11 +65,11 @@
 
 ### Step 3: Configure Your App
 
-Fill in the following details **exactly as shown**:
+Fill in the following details:
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│ Repository:  sarthakbjj-code/Rate-App              │
+│ Repository:  YOUR-USERNAME/Rate-App                │  ⚠️ Use YOUR GitHub username!
 │ Branch:      copilot/build-procurement-web-app     │
 │ Main file:   web_app/app.py                        │
 └─────────────────────────────────────────────────────┘
@@ -36,9 +77,11 @@ Fill in the following details **exactly as shown**:
 
 **Important Details:**
 
-- **Repository:** `sarthakbjj-code/Rate-App`
-  - This is the GitHub username/repository name
-  - Make sure it's spelled exactly like this
+- **Repository:** `YOUR-USERNAME/Rate-App`
+  - ⚠️ **Replace `YOUR-USERNAME` with your actual GitHub username**
+  - Example: If your GitHub username is `john_doe`, use `john_doe/Rate-App`
+  - ❌ DO NOT use `sarthakbjj-code/Rate-App` (that's someone else's repo)
+  - ✅ Use your forked repository name
   
 - **Branch:** `copilot/build-procurement-web-app`
   - **NOT** `main` branch
@@ -110,12 +153,35 @@ The deployed app includes:
 
 ### ❌ "Repository not found"
 
-**Problem:** Streamlit can't access the repository
+### ❌ "Repository not found" or "Access denied"
+
+**Problem:** You're trying to deploy from `sarthakbjj-code/Rate-App` instead of YOUR fork.
 
 **Solutions:**
-1. Make sure you spelled `sarthakbjj-code/Rate-App` correctly
-2. This is a **public repository** - no special permissions needed
-3. Try refreshing the page and starting over
+1. ⚠️ **You MUST fork the repository first** (see Step 0 at the top)
+2. Use `YOUR-USERNAME/Rate-App` in the repository field (your forked copy)
+3. ❌ DO NOT use `sarthakbjj-code/Rate-App` - you don't have permission
+4. ✅ After forking, Streamlit will have access to YOUR repository
+
+### ❌ "You don't have permission to deploy this repository"
+
+**Problem:** You haven't forked the repository yet.
+
+**Solutions:**
+1. Go to https://github.com/sarthakbjj-code/Rate-App
+2. Click the **"Fork"** button (top right corner)
+3. Wait for fork to complete
+4. Use YOUR forked repository: `YOUR-USERNAME/Rate-App` in Streamlit
+
+### ❌ Repository not showing in dropdown
+
+**Problem:** Your forked repository isn't appearing in Streamlit's dropdown.
+
+**Solutions:**
+1. Make sure you forked the repository first
+2. Type your repository name manually: `YOUR-USERNAME/Rate-App`
+3. In Streamlit Cloud, reconnect GitHub: Settings → Connected accounts
+4. Verify your fork is public (not private)
 
 ### ❌ "Branch not found"
 
