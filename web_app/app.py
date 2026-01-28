@@ -18,7 +18,15 @@ from src.data_collection.gst_lookup import GSTRateFinder
 from src.analysis.price_analyzer import PriceAnalyzer
 from src.analysis.forecasting import PriceForecaster
 from src.analysis.recommendations import RecommendationEngine
-from src.database import get_session, Product, PriceHistory
+
+# Try to import database (optional for cloud deployment)
+try:
+    from src.database import get_session, Product, PriceHistory
+    DB_AVAILABLE = True
+except ImportError:
+    DB_AVAILABLE = False
+    st.sidebar.warning("⚠️ Running in demo mode (no database)")
+
 from src.utils.validators import validate_product_name, validate_hsn_code
 from config import config
 import logging
@@ -220,8 +228,6 @@ else:
             })
         
         # Analyze prices
-        session = get_session()
-        
         # For demo purposes, create analysis without database
         # In production, this would use actual database data
         price_analysis = {

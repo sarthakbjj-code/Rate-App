@@ -1,18 +1,20 @@
-# ULTRA-LIGHTWEIGHT for Streamlit Cloud (2-3 minute deployment)
+# ABSOLUTE MINIMAL for Streamlit Cloud - Python 3.13 Compatible
+# No version pins to avoid compatibility issues
 # For full features, use requirements-full.txt and deploy locally
 
-# Core (essentials only)
-pandas==2.1.4
-numpy==1.26.2
-python-dotenv==1.0.0
+# Core Data Processing
+pandas
+numpy
 
-# Web Scraping (minimal)
-beautifulsoup4==4.12.2
-requests==2.31.0
+# Visualization (Streamlit auto-installed, Plotly for charts)
+plotly
 
-# Database
-sqlalchemy==2.0.23
+# Web Framework
+streamlit
 
-# Visualization (Streamlit + Plotly)
-plotly==5.18.0
-streamlit==1.29.0
+# Utilities
+python-dotenv
+
+# Web Scraping (lightweight)
+beautifulsoup4
+requests

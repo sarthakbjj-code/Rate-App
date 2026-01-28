@@ -2,6 +2,16 @@
 
 AI-powered price intelligence for smart procurement decisions.
 
+## 🚨 **DEPLOYMENT STUCK? WE FIXED IT!**
+
+If your deployment is hanging at "Processing dependencies", **we've just fixed it!**
+
+**👉 [READ THE FIX NOW](STUCK_DEPLOYMENT_FIX.md)** ⚡
+
+**Quick fix:** Delete your stuck app, wait 2 minutes, redeploy. Should work in 1-2 minutes!
+
+---
+
 ## 🚀 **Want to Deploy? FORK FIRST!**
 
 ### Step 1: Fork This Repository
@@ -11,12 +21,13 @@ Click the button below to create your own copy:
 
 **Or manually:** Click the "Fork" button at the top of this page.
 
-### Step 2: Deploy to Streamlit Cloud (2-3 minutes)
+### Step 2: Deploy to Streamlit Cloud (1-2 minutes)
 
 After forking, follow these guides:
 
 **👉 [QUICK DEPLOY GUIDE](QUICK_DEPLOY.md)** - Fast 3-step deployment  
 **🆕 [NEW ACCOUNT? START HERE](NEW_ACCOUNT_DEPLOY.md)** - Complete walkthrough for new users  
+**🔧 [DEPLOYMENT STUCK?](STUCK_DEPLOYMENT_FIX.md)** - Fix hanging deployments  
 **❓ [DEPLOYMENT FAQ](DEPLOYMENT_FAQ.md)** - Common questions answered
 
 ⚠️ **Important:** You must fork the repository before you can deploy it to Streamlit Cloud!
