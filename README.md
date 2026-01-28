@@ -2,7 +2,41 @@
 
 AI-powered price intelligence for smart procurement decisions.
 
-## 🚨 **LATEST FIX: Random Outputs Issue (Jan 28)**
+## 🚨 **LATEST FIX: Unrealistic Salt Prices & Wrong GST Rate (Jan 28)**
+
+### ⚡ FIXED: "Tata salt showing ₹304, ₹6000, ₹1500 and 18% GST"
+
+**User reported:** Salt prices were completely unrealistic and GST rate was wrong!
+
+**Problems:**
+- ❌ Salt showing ₹304, ₹6,000, ₹1,500 (way too high!)
+- ❌ Salt showing 18% GST (should be 0% - exempt!)
+
+**✅ FIXED:**
+- ✅ Salt now shows realistic prices: ₹18-25/kg
+- ✅ Salt GST corrected: 0% (HSN 2501 - Exempt)
+- ✅ Product-specific pricing for 10+ categories
+- ✅ All products now show appropriate prices
+
+**Examples:**
+```
+Salt:        ₹20/kg  (was ₹280-₹6,000) ✓
+Sugar:       ₹45/kg  ✓
+Wheat Flour: ₹40/kg  ✓
+Rice:        ₹60/kg  ✓
+Spices:      ₹300/kg ✓
+```
+
+**[FIX_SALT_PRICES_AND_GST.md](FIX_SALT_PRICES_AND_GST.md)** ← **READ HOW THIS WAS FIXED!**
+
+**For ClearTax real-time GST:**  
+→ **[CLEARTAX_INTEGRATION.md](CLEARTAX_INTEGRATION.md)** ← **15-MIN SETUP!**
+
+**Quick action:** REBOOT your app to see realistic prices and correct GST rates! ✨
+
+---
+
+## 🚨 **PREVIOUS FIX: Random Outputs Issue**
 
 ### ⚡ FIXED: "Getting random outputs pillsburry, ashirwas, random rates……"
 
@@ -14,8 +48,6 @@ AI-powered price intelligence for smart procurement decisions.
 - All results now match your search! 🎯
 
 **[FIX_FOR_RANDOM_OUTPUTS.md](FIX_FOR_RANDOM_OUTPUTS.md)** ← **READ HOW THIS WAS FIXED!**
-
-**Quick action:** REBOOT your app to see search-specific results! ✨
 
 ---
 
