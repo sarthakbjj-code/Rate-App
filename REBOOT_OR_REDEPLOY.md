@@ -7,6 +7,13 @@
 ✅ **REBOOT** = Fast, easy, works 90% of the time (2 minutes)  
 ❌ **REDEPLOY** = Only if reboot doesn't work (5 minutes)
 
+### 🆕 Latest Fix (Jan 28, 2026)
+
+**If you see Streamlit 1.19.0 in logs:** We just fixed it! The latest code pins Streamlit to 1.28+.  
+👉 **Just REBOOT** and it will install the correct version!
+
+See: [STREAMLIT_VERSION_FIX.md](STREAMLIT_VERSION_FIX.md) for details.
+
 ---
 
 ## 1. When to REBOOT (Try This First!)

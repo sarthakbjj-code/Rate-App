@@ -1,16 +1,16 @@
 # ABSOLUTE MINIMAL for Streamlit Cloud - Python 3.13 Compatible
-# No version pins to avoid compatibility issues
+# Only Streamlit pinned to ensure compatibility, others flexible
 # For full features, use requirements-full.txt and deploy locally
 
 # Core Data Processing
 pandas
 numpy
 
-# Visualization (Streamlit auto-installed, Plotly for charts)
+# Visualization
 plotly
 
-# Web Framework
-streamlit
+# Web Framework (MUST pin to recent version for Python 3.13 compatibility)
+streamlit>=1.28.0
 
 # Utilities
 python-dotenv

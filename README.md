@@ -2,16 +2,24 @@
 
 AI-powered price intelligence for smart procurement decisions.
 
-## 🚨 **DEPLOYMENT STUCK? WE FIXED IT!**
+## 🚨 **DEPLOYMENT STUCK? LATEST FIX!**
 
-If your deployment is hanging at "Processing dependencies", **we've just fixed it!**
+### ⚡ New Fix (Jan 28): Streamlit Version Issue
+
+If you see `streamlit==1.19.0` in your logs → **[STREAMLIT VERSION FIX](STREAMLIT_VERSION_FIX.md)** ← Click here!
+
+**Quick fix:** Reboot your app (we just pinned Streamlit to 1.28+). Should work in 2-3 minutes!
+
+### 🔧 Previous Issue: Dependencies Hanging
+
+If deployment hangs at "Processing dependencies":
 
 **Q: Do I redeploy or just reboot?**  
 **A: REBOOT first!** → **[Click here for step-by-step](REBOOT_OR_REDEPLOY.md)** ⚡
 
 **Quick answer:** Go to Streamlit Cloud → Find your app → Click menu (⋮) → Reboot app → Wait 2-3 minutes!
 
-**Still stuck?** → **[Full troubleshooting guide](STUCK_DEPLOYMENT_FIX.md)**
+**All troubleshooting:** → **[STUCK_DEPLOYMENT_FIX.md](STUCK_DEPLOYMENT_FIX.md)**
 
 ---
 
