@@ -2,6 +2,14 @@
 
 AI-powered price intelligence for smart procurement decisions.
 
+## 🚀 **NEW: 2-Minute Cloud Deployment!**
+
+Deploy to Streamlit Cloud in just 2-3 minutes with our ultra-lightweight configuration!
+
+**👉 [QUICK DEPLOY GUIDE](QUICK_DEPLOY.md) 👈**
+
+---
+
 ## Features
 
 ✅ **Multi-Source Price Scraping**
