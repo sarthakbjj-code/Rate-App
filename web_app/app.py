@@ -342,17 +342,189 @@ else:
         else:
             rec_engine = None
         
-        # If no scraped prices, use dummy data for demo
+        # If no scraped prices, use comprehensive dummy data for demo
+        # Shows multiple sources and size variants as requested by user
         if not current_prices:
             current_prices = [
+                # Blinkit - 500g variant
                 {
-                    'product_name': product_name,
-                    'brand': 'Generic',
-                    'current_price': 295.0,
+                    'product_name': f'{product_name} 500g',
+                    'brand': 'Ashirvaad',
+                    'size': '500g',
+                    'current_price': 145.0,
+                    'mrp': 160.0,
+                    'source': 'Blinkit',
+                    'url': 'https://blinkit.com/search?q=' + product_name.replace(' ', '+'),
+                    'in_stock': True,
+                    'discount_percent': 9.4
+                },
+                # Blinkit - 1kg variant
+                {
+                    'product_name': f'{product_name} 1kg',
+                    'brand': 'Ashirvaad',
+                    'size': '1kg',
+                    'current_price': 280.0,
                     'mrp': 310.0,
-                    'source': 'Market Average',
-                    'url': '#',
-                    'in_stock': True
+                    'source': 'Blinkit',
+                    'url': 'https://blinkit.com/search?q=' + product_name.replace(' ', '+'),
+                    'in_stock': True,
+                    'discount_percent': 9.7
+                },
+                # Blinkit - 5kg variant
+                {
+                    'product_name': f'{product_name} 5kg',
+                    'brand': 'Ashirvaad',
+                    'size': '5kg',
+                    'current_price': 1375.0,
+                    'mrp': 1480.0,
+                    'source': 'Blinkit',
+                    'url': 'https://blinkit.com/search?q=' + product_name.replace(' ', '+'),
+                    'in_stock': True,
+                    'discount_percent': 7.1
+                },
+                # Amazon - 500g variant
+                {
+                    'product_name': f'{product_name} 500g',
+                    'brand': 'Pillsbury',
+                    'size': '500g',
+                    'current_price': 148.0,
+                    'mrp': 165.0,
+                    'source': 'Amazon',
+                    'url': 'https://amazon.in/s?k=' + product_name.replace(' ', '+'),
+                    'in_stock': True,
+                    'discount_percent': 10.3
+                },
+                # Amazon - 1kg variant
+                {
+                    'product_name': f'{product_name} 1kg',
+                    'brand': 'Pillsbury',
+                    'size': '1kg',
+                    'current_price': 285.0,
+                    'mrp': 320.0,
+                    'source': 'Amazon',
+                    'url': 'https://amazon.in/s?k=' + product_name.replace(' ', '+'),
+                    'in_stock': True,
+                    'discount_percent': 10.9
+                },
+                # Amazon - 5kg variant
+                {
+                    'product_name': f'{product_name} 5kg',
+                    'brand': 'Pillsbury',
+                    'size': '5kg',
+                    'current_price': 1399.0,
+                    'mrp': 1550.0,
+                    'source': 'Amazon',
+                    'url': 'https://amazon.in/s?k=' + product_name.replace(' ', '+'),
+                    'in_stock': True,
+                    'discount_percent': 9.7
+                },
+                # Flipkart - 1kg variant
+                {
+                    'product_name': f'{product_name} 1kg',
+                    'brand': 'Aashirvaad',
+                    'size': '1kg',
+                    'current_price': 295.0,
+                    'mrp': 315.0,
+                    'source': 'Flipkart',
+                    'url': 'https://flipkart.com/search?q=' + product_name.replace(' ', '%20'),
+                    'in_stock': True,
+                    'discount_percent': 6.3
+                },
+                # Flipkart - 5kg variant
+                {
+                    'product_name': f'{product_name} 5kg',
+                    'brand': 'Aashirvaad',
+                    'size': '5kg',
+                    'current_price': 1425.0,
+                    'mrp': 1499.0,
+                    'source': 'Flipkart',
+                    'url': 'https://flipkart.com/search?q=' + product_name.replace(' ', '%20'),
+                    'in_stock': True,
+                    'discount_percent': 4.9
+                },
+                # JioMart - 500g variant
+                {
+                    'product_name': f'{product_name} 500g',
+                    'brand': 'Annapurna',
+                    'size': '500g',
+                    'current_price': 142.0,
+                    'mrp': 158.0,
+                    'source': 'JioMart',
+                    'url': 'https://jiomart.com/search/' + product_name.replace(' ', '%20'),
+                    'in_stock': True,
+                    'discount_percent': 10.1
+                },
+                # JioMart - 1kg variant
+                {
+                    'product_name': f'{product_name} 1kg',
+                    'brand': 'Annapurna',
+                    'size': '1kg',
+                    'current_price': 275.0,
+                    'mrp': 305.0,
+                    'source': 'JioMart',
+                    'url': 'https://jiomart.com/search/' + product_name.replace(' ', '%20'),
+                    'in_stock': True,
+                    'discount_percent': 9.8
+                },
+                # IndiaMART - 10kg bulk (wholesale)
+                {
+                    'product_name': f'{product_name} 10kg',
+                    'brand': 'Generic',
+                    'size': '10kg',
+                    'current_price': 2650.0,
+                    'mrp': 2900.0,
+                    'source': 'IndiaMART',
+                    'url': 'https://indiamart.com/search.html?q=' + product_name.replace(' ', '+'),
+                    'in_stock': True,
+                    'discount_percent': 8.6
+                },
+                # IndiaMART - 25kg bulk (wholesale)
+                {
+                    'product_name': f'{product_name} 25kg',
+                    'brand': 'Generic',
+                    'size': '25kg',
+                    'current_price': 6400.0,
+                    'mrp': 7000.0,
+                    'source': 'IndiaMART',
+                    'url': 'https://indiamart.com/search.html?q=' + product_name.replace(' ', '+'),
+                    'in_stock': True,
+                    'discount_percent': 8.6
+                },
+                # BigBasket - 500g variant
+                {
+                    'product_name': f'{product_name} 500g',
+                    'brand': 'Fortune',
+                    'size': '500g',
+                    'current_price': 149.0,
+                    'mrp': 162.0,
+                    'source': 'BigBasket',
+                    'url': 'https://bigbasket.com/ps/?q=' + product_name.replace(' ', '%20'),
+                    'in_stock': True,
+                    'discount_percent': 8.0
+                },
+                # BigBasket - 1kg variant
+                {
+                    'product_name': f'{product_name} 1kg',
+                    'brand': 'Fortune',
+                    'size': '1kg',
+                    'current_price': 290.0,
+                    'mrp': 318.0,
+                    'source': 'BigBasket',
+                    'url': 'https://bigbasket.com/ps/?q=' + product_name.replace(' ', '%20'),
+                    'in_stock': True,
+                    'discount_percent': 8.8
+                },
+                # BigBasket - 5kg variant
+                {
+                    'product_name': f'{product_name} 5kg',
+                    'brand': 'Fortune',
+                    'size': '5kg',
+                    'current_price': 1410.0,
+                    'mrp': 1520.0,
+                    'source': 'BigBasket',
+                    'url': 'https://bigbasket.com/ps/?q=' + product_name.replace(' ', '%20'),
+                    'in_stock': True,
+                    'discount_percent': 7.2
                 }
             ]
         
@@ -418,35 +590,130 @@ else:
         
         st.markdown("---")
         
+        # Add view toggle for size-based or source-based grouping
+        col_toggle1, col_toggle2 = st.columns([1, 3])
+        with col_toggle1:
+            view_mode = st.selectbox(
+                "Group By:",
+                ["Source", "Size"],
+                help="Choose how to group the price data"
+            )
+        
+        st.markdown("##### 🔍 Multi-Source Price Comparison with Size Variants")
+        st.caption("💡 Compare prices across all sources and size options. Click links to visit product pages.")
+        
         # Price comparison table
         if current_prices:
             df_prices = pd.DataFrame(current_prices)
             
-            # Select relevant columns
-            display_cols = ['source', 'brand', 'current_price', 'mrp', 'url']
+            # Select and reorder columns for comprehensive display
+            display_cols = ['source', 'brand', 'size', 'current_price', 'mrp', 'discount_percent', 'in_stock', 'url']
             available_cols = [col for col in display_cols if col in df_prices.columns]
             
             if available_cols:
-                df_display = df_prices[available_cols]
+                df_display = df_prices[available_cols].copy()
+                
+                # Sort based on view mode
+                if view_mode == "Size":
+                    if 'size' in df_display.columns:
+                        # Custom sort for sizes (500g, 1kg, 5kg, 10kg, 25kg)
+                        size_order = {'500g': 1, '1kg': 2, '5kg': 3, '10kg': 4, '25kg': 5}
+                        df_display['sort_key'] = df_display['size'].map(size_order).fillna(999)
+                        df_display = df_display.sort_values(['sort_key', 'current_price'])
+                        df_display = df_display.drop('sort_key', axis=1)
+                else:  # Source
+                    df_display = df_display.sort_values(['source', 'size'] if 'size' in df_display.columns else ['source'])
+                
+                # Format in_stock as checkmark
+                if 'in_stock' in df_display.columns:
+                    df_display['in_stock'] = df_display['in_stock'].apply(lambda x: '✅' if x else '❌')
                 
                 st.dataframe(
                     df_display,
                     column_config={
-                        "source": "Source",
-                        "brand": "Brand",
+                        "source": st.column_config.TextColumn(
+                            "🛒 Source",
+                            help="E-commerce platform or marketplace",
+                            width="medium"
+                        ),
+                        "brand": st.column_config.TextColumn(
+                            "🏷️ Brand",
+                            help="Product brand name",
+                            width="medium"
+                        ),
+                        "size": st.column_config.TextColumn(
+                            "📦 Size/Variant",
+                            help="Product size or variant",
+                            width="small"
+                        ),
                         "current_price": st.column_config.NumberColumn(
-                            "Price (₹)",
-                            format="₹%.2f"
+                            "💰 Sale Price",
+                            help="Current selling price",
+                            format="₹%.2f",
+                            width="medium"
                         ),
                         "mrp": st.column_config.NumberColumn(
-                            "MRP (₹)",
-                            format="₹%.2f"
+                            "💵 MRP",
+                            help="Maximum Retail Price",
+                            format="₹%.2f",
+                            width="medium"
                         ),
-                        "url": st.column_config.LinkColumn("Product Link")
+                        "discount_percent": st.column_config.NumberColumn(
+                            "🎯 Discount",
+                            help="Discount percentage",
+                            format="%.1f%%",
+                            width="small"
+                        ),
+                        "in_stock": st.column_config.TextColumn(
+                            "📊 Stock",
+                            help="Availability status",
+                            width="small"
+                        ),
+                        "url": st.column_config.LinkColumn(
+                            "🔗 Product Link",
+                            help="Click to view product on source website",
+                            width="small"
+                        )
                     },
                     hide_index=True,
-                    use_container_width=True
+                    use_container_width=True,
+                    height=600
                 )
+                
+                # Add summary statistics
+                st.markdown("---")
+                st.markdown("##### 📊 Price Summary")
+                col_stat1, col_stat2, col_stat3, col_stat4 = st.columns(4)
+                
+                with col_stat1:
+                    st.metric(
+                        "Total Variants",
+                        len(df_prices),
+                        help="Number of product variants found"
+                    )
+                
+                with col_stat2:
+                    st.metric(
+                        "Price Range",
+                        f"₹{df_prices['current_price'].min():.0f} - ₹{df_prices['current_price'].max():.0f}",
+                        help="Lowest to highest sale price"
+                    )
+                
+                with col_stat3:
+                    avg_discount = df_prices['discount_percent'].mean() if 'discount_percent' in df_prices.columns else 0
+                    st.metric(
+                        "Avg Discount",
+                        f"{avg_discount:.1f}%",
+                        help="Average discount across all variants"
+                    )
+                
+                with col_stat4:
+                    sources_count = df_prices['source'].nunique()
+                    st.metric(
+                        "Sources",
+                        sources_count,
+                        help="Number of unique sources"
+                    )
         else:
             st.info("No current prices available. Scrapers returned no results.")
             st.write("This could be because:")
